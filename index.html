@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portfolio | Home</title>
+    <style>
+        /* Modern Reset & Base Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-color: #030a16; 
+            --electric-blue: #00d2ff;
+            --electric-glow: #0066ff;
+            --star-yellow: #ffd700;
+            --card-bg: rgba(7, 20, 41, 0.65);
+            --text-main: #ffffff;
+            --text-muted: #8fa3c7;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Visuals Layering Container */
+        .ambient-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.25) 0%, var(--bg-color) 90%);
+        }
+
+        /* Lightning Canvas Frame */
+        #lightningCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.7;
+        }
+
+        /* Sideways Moving Stars Background Overlay */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            opacity: 0.8;
+            background-image: 
+                radial-gradient(2px 2px at 50px 120px, var(--star-yellow), transparent),
+                radial-gradient(3px 3px at 250px 420px, #ffffff, transparent),
+                radial-gradient(2px 2px at 380px 180px, var(--star-yellow), transparent),
+                radial-gradient(4px 4px at 550px 320px, var(--star-yellow), transparent),
+                radial-gradient(2px 2px at 680px 520px, #ffffff, transparent),
+                radial-gradient(3px 3px at 820px 220px, var(--star-yellow), transparent),
+                radial-gradient(2px 2px at 980px 470px, var(--star-yellow), transparent),
+                radial-gradient(4px 4px at 1150px 170px, #ffffff, transparent),
+                radial-gradient(2px 2px at 1280px 380px, var(--star-yellow), transparent),
+                radial-gradient(3px 3px at 1450px 580px, var(--star-yellow), transparent);
+            background-size: 1500px 600px;
+            animation: moveStarsSideways 28s linear infinite;
+        }
+
+        @keyframes moveStarsSideways {
+            from { transform: translateX(0); }
+            to { transform: translateX(-1500px); }
+        }
+
+        /* Keep Content Elements Positioned Above Atmosphere Elements */
+        header, .hero, .portfolio-section, footer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navigation Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            background: rgba(3, 10, 22, 0.75);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eb-logo {
+            width: 40px;
+            height: 40px;
+            background-color: var(--electric-blue);
+            box-shadow: 0 0 15px var(--electric-blue);
+            display: grid;
+            place-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+            border-radius: 4px;
+            color: #030a16;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+            border-bottom: 2px solid var(--electric-blue);
+            text-shadow: 0 0 8px var(--electric-blue);
+            padding-bottom: 4px;
+        }
+
+        /* Hero Landing Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            padding-top: 80px;
+        }
+
+        .hero-tag {
+            color: var(--star-yellow);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background-color: var(--electric-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--electric-blue);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--electric-blue), 0 0 10px #ffffff;
+        }
+
+        /* Portfolio Projects Grid Section */
+        .portfolio-section {
+            padding: 5rem 10%;
+            background: rgba(4, 13, 29, 0.85);
+            border-top: 1px solid rgba(0, 210, 255, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50%;
+            height: 3px;
+            background-color: var(--electric-blue);
+            box-shadow: 0 0 8px var(--electric-blue);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(0, 210, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .card-img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 210, 255, 0.03);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            color: #ffffff;
+        }
+
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-link {
+            color: var(--star-yellow);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid rgba(0, 210, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: #030a16;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 1rem 5%; }
+            nav ul { display: none; }
+            .hero { padding: 0 5%; }
+            .hero h1 { font-size: 2.5rem; }
+            .portfolio-section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Environment Layer: Houses Stars & Lightning Canvas -->
+    <div class="ambient-background">
+        <div class="stars-container"></div>
+        <canvas id="lightningCanvas"></canvas>
+    </div>
+
+    <!-- Header Navigation Grid -->
+    <header>
+        <div class="logo-container">
+            <div class="eb-logo">EB</div>
+            <div class="logo-text">PORTFOLIO</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Landing View Area -->
+    <section class="hero">
